@@ -48,10 +48,10 @@ module "eks" {
       labels = { nodegroup = "blue" } # Kubernetes node labels
 
       # IAM policies for persistent storage
-      iam_role_additional_policies = [
+      iam_role_additional_policies = {
         amazonEBS = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
         amazonEFS = "arn:aws:iam::aws:policy/service-role/AmazonEFSCSIDriverPolicy"
-      ]
+      }
     }
 
     # Green Node Group (For Upgrades)
@@ -71,10 +71,10 @@ module "eks" {
 
       labels = { nodegroup = "green" }
 
-      iam_role_additional_policies = [
+      iam_role_additional_policies = {
         amazonEBS = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
         amazonEFS = "arn:aws:iam::aws:policy/service-role/AmazonEFSCSIDriverPolicy"
-      ]
+      }
     }
   }
 
