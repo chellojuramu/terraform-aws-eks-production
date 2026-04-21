@@ -1,52 +1,52 @@
 variable "project" {
-  description = "Project name used for resource naming and tagging(e.g. roboshop)"
+  description = "Project name used for resource naming and tagging (e.g. roboshop)"
   type        = string
-
 }
 
 variable "environment" {
-  description = "Environment name used for resource naming and tagging(e.g. dev, test, prod)"
+  description = "Deployment environment. Must be one of: dev, qa, uat, prod"
   type        = string
   validation {
     condition     = contains(["dev", "qa", "uat", "prod"], var.environment)
-    error_message = "Environment name must be one of dev, qa, uat, prod"
+    error_message = "Environment must be one of: dev, qa, uat, prod."
   }
-
 }
+
 variable "vpc_id" {
-  description = "ID of the VPC where the EKS Cluster will be created"
+  description = "ID of the VPC where the EKS cluster will be created"
   type        = string
-
 }
+
 variable "private_subnet_ids" {
-  description = "List of Private subnet IDs for the EKS control plane and node groups"
+  description = "List of private subnet IDs for the EKS control plane and node groups"
   type        = list(string)
-
 }
+
 variable "cluster_version" {
-  description = "Kubernetes Version for the EKS cluster control plane(eg.1.30)"
+  description = "Kubernetes version for the EKS cluster control plane (e.g. 1.30)"
   type        = string
   default     = "1.34"
-
 }
+
 variable "cluster_security_group_ids" {
-  description = "List of additional security group IDs to attach to the EKS control plane module consumer is responsible for creating these"
+  description = "List of additional security group IDs to attach to the EKS control plane. Module consumer is responsible for creating these."
   type        = list(string)
   default     = []
 }
-variable "node_security_group_ids" {
-  description = "List of security group IDs to attach to worker nodes via launch template. EKS cluster SG is always attached automatically"
-  type        = list(string)
-  default     = []
 
+variable "node_security_group_ids" {
+  description = "List of security group IDs to attach to worker nodes via launch template. EKS cluster SG is always attached automatically."
+  type        = list(string)
+  default     = []
 }
+
 variable "eks_managed_node_groups" {
   description = <<-EOT
     Map of managed node group configurations.
     Set create=false to disable a node group without removing it from config.
-    Blue-Green upgrade: enable_blue=true,enable_green=true during upgrade,
-    drain blue,then set enable_blue=false.
-    EOT
+    Blue-Green upgrade: enable_blue=true, enable_green=true during upgrade,
+    drain blue, then set enable_blue=false.
+  EOT
   type = map(object({
     create             = optional(bool, true)
     ami_type           = optional(string, "AL2023_x86_64_STANDARD")
@@ -58,12 +58,12 @@ variable "eks_managed_node_groups" {
     max_size           = optional(number, 5)
     desired_size       = optional(number, 2)
     labels             = optional(map(string), {})
-    taints = optional(list(object({
+    taints = optional(map(object({
       key    = string
       value  = string
       effect = string
-    })), [])
-    iam_role_additional_policies = optional(list(string), [])
+    })), {})
+    iam_role_additional_policies = optional(map(string), {})
   }))
   default = {
     blue = {}
@@ -75,6 +75,3 @@ variable "cluster_tags" {
   type        = map(string)
   default     = {}
 }
-
-
-
