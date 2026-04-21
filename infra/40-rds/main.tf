@@ -10,7 +10,7 @@ module "db" {
   username                    = "root"
   port                        = "3306"
   manage_master_user_password = false
-  password_wo                 = local.mysql_root_password
+  password_wo                 = "RoboShop#123"
   password_wo_version         = 1
 
   vpc_security_group_ids = [local.mysql_sg_id]
