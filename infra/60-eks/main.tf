@@ -1,5 +1,5 @@
 module "eks" {
-  source = "terraform-aws-modules/eks/aws"
+  source = "git::https://github.com/chellojuramu/terraform-aws-eks-production.git//modules/terraform-aws-eks?ref=main"
 
 
 }
