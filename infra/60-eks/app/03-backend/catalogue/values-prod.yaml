@@ -1,0 +1,6 @@
+configMap:
+  MONGO_URL: "mongodb://mongodb:27017/catalogue"
+deployment:
+  replicas: "1"
+  imageName: "chelloju/roboshop-catalogue"
+  imageVersion: "2.0"
