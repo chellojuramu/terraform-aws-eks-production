@@ -4,7 +4,6 @@ Based on your instructor's README + your repo structure + production best practi
 
 ---
 
-```markdown
 # Terraform AWS EKS Production
 
 Production-grade EKS infrastructure with Terraform, featuring modular architecture, blue-green node group capability, and complete application deployment workflow.
