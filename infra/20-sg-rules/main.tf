@@ -22,7 +22,7 @@ resource "aws_security_group_rule" "redis_bastion" {
   source_security_group_id = local.bastion_sg_id
   security_group_id        = local.redis_sg_id
 }
-resource "aws_security_group_rule" "mysq_bastion" {
+resource "aws_security_group_rule" "mysql_bastion" {
   type                     = "ingress"
   from_port                = 3306
   to_port                  = 3306
@@ -55,6 +55,14 @@ resource "aws_security_group_rule" "ingress_alb_public" {
   cidr_blocks       = ["0.0.0.0/0"] # From anywhere on the internet
   security_group_id = local.ingress_alb_sg_id
 }
+resource "aws_security_group_rule" "openvpn_public_443" {
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = local.openvpn_sg_id
+}
 resource "aws_security_group_rule" "openvpn_public_943" {
   type              = "ingress"
   from_port         = 943
@@ -69,6 +77,14 @@ resource "aws_security_group_rule" "eks_control_plane_bastion" {
   to_port                  = 443
   protocol                 = "tcp"
   source_security_group_id = local.bastion_sg_id
+  security_group_id        = local.eks_control_plane_sg_id
+}
+resource "aws_security_group_rule" "eks_control_plane_jenkins_agent" {
+  type                     = "ingress"
+  from_port                = 443
+  to_port                  = 443
+  protocol                 = "tcp"
+  source_security_group_id = local.jenkins_agent_sg_id
   security_group_id        = local.eks_control_plane_sg_id
 }
 resource "aws_security_group_rule" "eks_node_bastion" {
