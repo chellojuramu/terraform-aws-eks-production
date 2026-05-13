@@ -18,6 +18,6 @@ variable "sg_names" {
     "openvpn",
     "eks_control_plane", "eks_node",
     "jenkins", "jenkins_agent",
-    "sonar"
+    "sonar", "runner"
   ]
 }
