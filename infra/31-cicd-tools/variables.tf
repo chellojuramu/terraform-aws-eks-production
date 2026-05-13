@@ -15,7 +15,7 @@ variable "domain_name" {
 }
 
 variable "sonar" {
-  default = "true"
+  default = "false"
 
 }
 variable "runner" {
@@ -23,5 +23,9 @@ variable "runner" {
 }
 
 variable "jenkins" {
-  default = "true"
+  default = "false"
+}
+
+variable "jenkins_agent" {
+  default = "false"
 }
